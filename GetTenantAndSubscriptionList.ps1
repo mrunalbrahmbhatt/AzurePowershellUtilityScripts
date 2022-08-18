@@ -1,4 +1,5 @@
 #Purpose : Gets the Tenant and Subscription list in single table.
+#User has to be Global Admin, Owner otherwise they will only get the list which are accessible to them and may not get full list.
 
 #Connect-AzAccount
 
