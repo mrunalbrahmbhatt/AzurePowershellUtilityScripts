@@ -9,23 +9,24 @@ $subscriptions = Get-AzSubscription | Sort-Object -Property TenantId
 #$tenants | Format-Table -AutoSize
 #$subscriptions | Format-Table -AutoSize
 
-#Empty list array.
 $list = @()
 
 #Combining tenant and subscription details.
 foreach ($t in $tenants)
 {
+
+    
     foreach ($s in $subscriptions)
     {
         # decide whether to join
         if ($t.Id -eq $s.TenantId)
         {
-                #Subscriptions attached with the Tenancy.
-                $list += New-Object PSObject -Property @{
+            # output a new object with the join result
+            $list += New-Object PSObject -Property @{
                 TenandId = $t.Id;
                 TenantName  = $t.Name;
                 TenantCategory  = $t.Category;
-                TenantDomains  = $t.Domains;
+                TenantDomains  = $t.Domains -join "|";
                 SubId = $s.Id;
                 SubName = $s.Name;
                 SubState = $s.State;
@@ -33,12 +34,11 @@ foreach ($t in $tenants)
         }
         else
         {
-            #No Subscriptions attached.
             $list += New-Object PSObject -Property @{
                 TenandId = $t.Id;
                 TenantName  = $t.Name;
                 TenantCategory  = $t.Category;
-                TenantDomains  = $t.Domains;
+                TenantDomains  = $t.Domains -join "|";
                 SubId = '---';
                 SubName = '---';
                 SubState = '---';
@@ -52,3 +52,10 @@ foreach ($t in $tenants)
 
 #Print Tenant and Subscription in single line.
 $list | Select-Object -Property TenandId,TenantName,TenantDomains,SubId,SubName,SubState | Format-Table -Wrap -AutoSize
+
+#Export to CSV 
+#Note: change the path
+#$list | Select-Object -Property TenandId,TenantName,TenantDomains,SubId,SubName,SubState | Export-Csv -Path c:\temp\TenentAndSubscriptions.csv -Force -NoTypeInformation
+
+
+
