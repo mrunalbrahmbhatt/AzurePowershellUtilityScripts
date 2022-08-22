@@ -55,4 +55,4 @@ $list | Select-Object -Property TenandId,TenantName,TenantCategory, TenantDomain
 
 #Export to CSV 
 #Note: change the path
-#$list | Select-Object -Property TenandId,TenantName,TenantDomains,SubId,SubName,SubState | Export-Csv -Path c:\temp\TenentAndSubscriptions.csv -Force -NoTypeInformation
+#$list | Select-Object -Property TenandId,TenantName,TenantCategory,TenantDomains,SubId,SubName,SubState | Export-Csv -Path c:\temp\TenentAndSubscriptions.csv -Force -NoTypeInformation
