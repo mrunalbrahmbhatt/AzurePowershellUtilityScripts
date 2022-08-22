@@ -1,5 +1,5 @@
 #Purpose : Gets the Tenant and Subscription list in single table.
-#User has to be Global Admin, Owner otherwise they will only get the list which are accessible to them and may not get full list.
+#User has to be Global Admin, otherwise they will only get the list which are accessible to them and may not get full list.
 
 #Connect-AzAccount
 
@@ -25,7 +25,7 @@ foreach ($t in $tenants)
             $list += New-Object PSObject -Property @{
                 TenandId = $t.Id;
                 TenantName  = $t.Name;
-                TenantCategory  = $t.Category;
+                TenantCategory  = $t.TenantCategory;
                 TenantDomains  = $t.Domains -join "|";
                 SubId = $s.Id;
                 SubName = $s.Name;
@@ -51,11 +51,8 @@ foreach ($t in $tenants)
 }
 
 #Print Tenant and Subscription in single line.
-$list | Select-Object -Property TenandId,TenantName,TenantDomains,SubId,SubName,SubState | Format-Table -Wrap -AutoSize
+$list | Select-Object -Property TenandId,TenantName,TenantCategory, TenantDomains,SubId,SubName,SubState | Format-Table -Wrap -AutoSize
 
 #Export to CSV 
 #Note: change the path
 #$list | Select-Object -Property TenandId,TenantName,TenantDomains,SubId,SubName,SubState | Export-Csv -Path c:\temp\TenentAndSubscriptions.csv -Force -NoTypeInformation
-
-
-
